@@ -14,6 +14,7 @@ public class Main {
             while(dataSet != null && !dataSet.trim().isEmpty()) {
                 DataEntry parsedDataEntry = DataEntry.parseData(dataSet);
                 jedisClient.hmset(parsedDataEntry.getId(), parsedDataEntry.getData());
+                jedisClient.rpush(parsedDataEntry.getData().get("city"), parsedDataEntry.getId());
                 dataSet = br.readLine();
             }
             jedisClient.close();
