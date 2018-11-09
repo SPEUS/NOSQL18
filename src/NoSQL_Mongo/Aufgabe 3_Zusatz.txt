@@ -1,0 +1,41 @@
+Aufgabe 8
+	b.)
+	1. Name "Augsburg"
+	db.sinnDesLebens.find({name:"Augsburg"})
+	
+	2. alle Nike-Vereine, welche schwarz als mindestens eine Vereinsfarbe haben
+	db.sinnDesLebens.find({$and:[{"nike":"j"},{"farben":"schwarz"}]})
+	
+	3. alle Nike-Vereine, welche weiss und grün als Vereinsfarbe haben
+	db.sinnDesLebens.find({$and:[{nike:"j"},{farben:"weiss"},{farben:"gruen"}]})
+	
+	4. alle Nike-Vereine, welche weiss oder grün als Vereinsfarbe haben
+	db.sinnDesLebens.find({$and:[{nike:"j"},{$or:[{farben:"weiss"},{farben:"gruen"}]}]})
+	
+	5. den Verein mit dem höchsten Tabellenplatz
+	db.sinnDesLebens.find().sort({Tabellenplatz:1}).limit(1)
+
+	6. alle Vereine, die nicht auf einem Abstiegsplatz stehen
+	db.sinnDesLebens.find({Tabellenplatz:{$lt: 15}})
+	
+	c.)
+	der Verein, der am 04.02.1899 gegründet wurde ohne ID
+	db.sinnDesLebens.find({gruendung:"1899-02-04"},{_id:0})
+
+	d.)
+	db.sinnDesLebens.update({name: "Augsburg"}, {Tabellenplatz:1})
+	Das Dokument von Augsburg wurde überschrieben mit dem Dokument {_id: ..., Tabellenplatz: 1}
+	db.sinnDesLebens.update({Tabellenplatz: 1}, {name: 'Augsburg', gruendung: '1907-08-08', farben: ['rot', 'weiss'], Tabellenplatz: 12,  nike: 'j'})
+	
+	e.)
+	1. Ändern sie den Tabellenplatz von Leverkusen auf 2
+	db.sinnDesLebens.updateOne({name:"Leverkusen"},{$set: {Tabellenplatz: 2}})
+	
+	2. Werder soll um einen Tabellenplatz nach vorne gebracht werden
+	db.sinnDesLebens.updateOne({name: "Werder"},{$inc:{ Tabellenplatz: -1}})
+	
+	3. Ergänzen sie für den HSV ein Attribut „abgestiegen“ mit einem sinnvollen Wert
+	db.sinnDesLebens.updateOne({name: "HSV"}, {$set: {abgestiegen: true}})
+	
+	4. Ergänzen sie für alle Vereine, deren Vereinsfarbe weiss enthält, ein Attribut „Waschtemperatur“ mit dem Wert 90
+	db.sinnDesLebens.updateMany({farben:"weiss"},{$set: {Waschtemperatur : 90}})

@@ -10,6 +10,7 @@
       </profile>
     </annotationProcessing>
     <bytecodeTargetLevel>
+      <module name="NoSQL_Mongo" target="1.5" />
       <module name="NoSQL_Redis" target="1.8" />
     </bytecodeTargetLevel>
   </component>
